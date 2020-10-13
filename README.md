@@ -1,4 +1,4 @@
-# travel-app
+# VueJS Router
 
 ## Project setup
 ```
