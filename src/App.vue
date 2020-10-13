@@ -1,13 +1,32 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <nav id="nav">
+     <ul class="nav-links">
+      <li class="links">
+        <router-link to="/"> Home </router-link>
+      </li>
+      <li v-for="destination in destinations"
+      :key="destination.name"
+      class="links">
+        <router-link :to="{ name: 'destinationDetails', params: {slug: destination.slug}}"> 
+          {{destination.name}} 
+        </router-link>
+      </li>
+     </ul>
+    </nav>
+    <router-view :key="$route.path" />
   </div>
 </template>
-
+<script>
+import store from "@/store";
+export default{
+  data(){
+    return {
+      destinations: store.destinations
+    }
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -16,17 +35,14 @@
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
+.nav-links {
+  display: flex;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.links {
+  padding-right: 20px;
+  list-style: none;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.links:hover {
+  text-decoration: underline;
 }
 </style>
